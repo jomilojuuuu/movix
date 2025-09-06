@@ -6,9 +6,11 @@ import tw from "@/tailwind";
 interface props {
   onPress?: () => void;
   placeholder: string;
+  value: string;
+  onChangeText: (text: string) => void;
 }
 
-const SearchBar = ({ onPress, placeholder }: props) => {
+const SearchBar = ({ onPress, placeholder, value, onChangeText }: props) => {
   return (
     <View style={tw`flex-row items-center bg-gray-800 rounded-full px-5 py-4`}>
       {/* Icon */}
@@ -19,9 +21,9 @@ const SearchBar = ({ onPress, placeholder }: props) => {
         style={tw`flex-1 text-white ml-2 text-base`}
         placeholder={placeholder}
         placeholderTextColor="#ccc"
-        value=""
+        value={value}
         onPress={onPress}
-        onChangeText={() => {}}
+        onChangeText={onChangeText}
         onFocus={() => {}}
       />
     </View>

@@ -54,10 +54,8 @@ export default function Index() {
               </Text>
               <FlatList
                 data={movies}
-                renderItem={({ item }) => <MovieCard 
-                {... item}
-                />}
-                keyExtractor={(item) => item.id.toString() }
+                renderItem={({ item }) => <MovieCard {...item} />}
+                keyExtractor={(item) => item.id.toString()}
                 numColumns={3}
                 columnWrapperStyle={tw`flex-start gap-6 pr-5 mb-10`}
                 style={tw`mt-2 pb-32 `}
