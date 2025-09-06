@@ -1,9 +1,16 @@
 import SearchBar from "@/components/SearchBar";
 import tw from "@/tailwind";
-import { ActivityIndicator, ScrollView, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import { useRouter } from "expo-router";
 import useFetch from "@/services/useFetch";
 import { fetchMovies } from "@/services/api";
+import MovieCard from "@/components/MovieCard";
 
 export default function Index() {
   const router = useRouter();
@@ -33,7 +40,7 @@ export default function Index() {
         ) : moviesError ? (
           <Text>Error: {moviesError?.message}</Text>
         ) : (
-          <View className="flex-1 mt-5">
+          <View style={tw`flex-1 mt-5`}>
             <SearchBar
               onPress={() => {
                 router.push("/search");
@@ -42,9 +49,20 @@ export default function Index() {
             />
 
             <>
-            <Text style={tw`font-bold text-white text-lg mt-5 mb-3`}>
-              Latest Movies 
-            </Text>
+              <Text style={tw`font-bold text-white text-lg mt-5 mb-3`}>
+                Latest Movies
+              </Text>
+              <FlatList
+                data={movies}
+                renderItem={({ item }) => <MovieCard 
+                {... item}
+                />}
+                keyExtractor={(item) => item.id.toString() }
+                numColumns={3}
+                columnWrapperStyle={tw`flex-start gap-6 pr-5 mb-10`}
+                style={tw`mt-2 pb-32 `}
+                scrollEnabled={false}
+              />
             </>
           </View>
         )}
